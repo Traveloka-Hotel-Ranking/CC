@@ -10,13 +10,13 @@ module.exports = function(app) {
     });
     app.get("/api/test/all", controller.allAccess);
     app.get(
-        "/api/test/user",
+        "/api/test/hotel",
         [authJwt.verifyToken, authJwt.isUser],
         controller.userBoard
     );
 
     app.get(
-        "/api/test/user/:id",
+        "/api/test/hotel/:id",
         [authJwt.verifyToken, authJwt.isUser],
         controller.findById
     );

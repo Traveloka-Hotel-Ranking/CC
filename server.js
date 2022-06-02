@@ -3,7 +3,14 @@ const cors = require("cors");
 const app = express();
 const db = require("./app/models");
 const Role = db.role;
-db.sequelize.sync();
+const Hotel = db.hotel;
+// db.sequelize.sync();
+
+// Production
+db.sequelize.sync({force: true}).then(() => {
+  console.log('Drop and Resync Db');
+  initial();
+});
 
 var corsOptions = {
   origin: '*'
@@ -18,22 +25,32 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to Hotel Ranking application." });
 });
 
-// function initial() {
-//     Role.create({
-//       id: 1,
-//       name: "user"
-//     });
+function initial() {
+    Role.create({
+      id: 1,
+      name: "user"
+    });
    
-//     Role.create({
-//       id: 2,
-//       name: "moderator"
-//     });
+    Role.create({
+      id: 2,
+      name: "moderator"
+    });
    
-//     Role.create({
-//       id: 3,
-//       name: "admin"
-//     });
-// }
+    Role.create({
+      id: 3,
+      name: "admin"
+    });
+
+    Hotel.create({
+      name: "Carlton Hotel",
+      location: "Singapore"
+    });
+
+    Hotel.create({
+      name: "Royal Plaza on Scotts Hotel",
+      location: "Orchard City Center"
+    });
+}
 
 // Routes
 require("./app/routes/auth.routes")(app);
