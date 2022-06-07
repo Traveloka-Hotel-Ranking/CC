@@ -21,12 +21,6 @@ module.exports = function(app) {
         controller.findById
     );
 
-    app.put(
-        "/api/test/resetpassword",
-        [authJwt.verifyTokenReset, authJwt.isUser],
-        controller.resetPassword
-    );
-
     app.get(
         "/api/test/mod",
         [authJwt.verifyTokenHotel, authJwt.isModerator],
