@@ -1,6 +1,8 @@
 const db = require("../models");
 const Hotel = db.hotel;
+const User = db.user;
 const Op = db.Sequelize.Op;
+var bcrypt = require("bcryptjs");
 
 exports.allAccess = (req, res) => {
     res.status(200).send("Public Content.");
@@ -46,6 +48,32 @@ exports.findById = (req, res) => {
         res.status(500).send({
             message: "Error Retrieving Hotel with id =" + id
         });
+    });
+};
+
+exports.resetPassword = (req, res) => {
+  const email = req.body.email;
+  User.update({
+    password: bcrypt.hashSync(req.body.password, 8),
+  }, { where: { email: email } }
+  )
+    .then(user => {
+      if (user == 1) {
+        res.status(200).send({
+            status: "true",
+            message: "Tutorial was updated successfully."
+        });
+      } else {
+        res.status(404).send({
+            status: "false",
+            message: `Cannot update Password with email=${email}. Maybe email was not found`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Tutorial with id=" + email
+      });
     });
 };
 

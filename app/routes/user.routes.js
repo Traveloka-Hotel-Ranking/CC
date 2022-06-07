@@ -11,25 +11,31 @@ module.exports = function(app) {
     app.get("/api/test/all", controller.allAccess);
     app.get(
         "/api/test/hotel",
-        [authJwt.verifyToken, authJwt.isUser],
+        [authJwt.verifyTokenHotel, authJwt.isUser],
         controller.userBoard
     );
 
     app.get(
         "/api/test/hotel/:id",
-        [authJwt.verifyToken, authJwt.isUser],
+        [authJwt.verifyTokenHotel, authJwt.isUser],
         controller.findById
+    );
+
+    app.put(
+        "/api/test/resetpassword",
+        [authJwt.verifyTokenReset, authJwt.isUser],
+        controller.resetPassword
     );
 
     app.get(
         "/api/test/mod",
-        [authJwt.verifyToken, authJwt.isModerator],
+        [authJwt.verifyTokenHotel, authJwt.isModerator],
         controller.moderatorBoard
     );
 
     app.get(
         "/api/test/admin",
-        [authJwt.verifyToken, authJwt.isAdmin],
+        [authJwt.verifyTokenHotel, authJwt.isAdmin],
         controller.adminBoard
     );
 };

@@ -12,10 +12,13 @@ exports.signup = (req, res) => {
         name: req.body.name,
         email: req.body.email,
         phone: req.body.phone,
-        password: bcrypt.hashSync(req.body.password, 8)
+        password: bcrypt.hashSync(req.body.password, 8),
+        favCountry: req.body.favCountry,
+        favFood: req.body.favFood,
+        favMovie: req.body.favMovie
     })
-     .then(user => {
-         if (req.body.roles) {
+     .then(user => {        
+        if (req.body.roles) {
              Role.findAll({
                  where: {
                      name: {
@@ -35,15 +38,20 @@ exports.signup = (req, res) => {
          }
      })
      .catch(err => {
-         res.status(500).send({ message: err.message });
+         res.status(500).send({ 
+             message: "User failed to register. Please complete the data." 
+        });
      });
 };
 
 exports.signin = (req, res) => {
     User.findOne({
         where: {
-            email: req.body.email
-        }
+            [Op.or] : [
+                { email: `${req.body.email || ""}`},
+                { phone: `${req.body.phone || ""}`},
+            ],
+        },
     })
     .then(user => {
         if (!user) {
@@ -61,7 +69,7 @@ exports.signin = (req, res) => {
                 message: "Invalid Password!"
             });
         }
-        var token = jwt.sign({ id: user.id }, config.secret, {
+        var token = jwt.sign({ id: user.id }, config.secret_signin, {
             expiresIn: 86400 // 24 hours
         });
         var authorities = [];
@@ -82,5 +90,47 @@ exports.signin = (req, res) => {
     })
     .catch(err => {
         res.status(500).send({ message: err.message });
+    });
+};
+
+exports.forgotPassword = (req, res) => {   
+    User.findOne({
+        where: {
+            email: req.body.email,
+            [Op.or] : [
+                { favCountry: `${req.body.favCountry || ""}`},
+                { favFood: `${req.body.favFood || ""}`},
+                { favMovie: `${req.body.favMovie || ""}`},
+            ],
+        }
+    })
+    .then(user => {
+        if (!user) {
+            return res.status(404).send({ message: "User Not Found." });
+        };
+
+        var tokenReset = jwt.sign({ id: user.id }, config.secret_forgotPass, {
+            expiresIn: 86400 // 24 hours
+        });
+        var authorities = [];
+        user.getRoles().then(roles => {
+            for (let i = 0; i < roles.length; i++) {
+                authorities.push("ROLE_" + roles[i].name.toUpperCase());
+            }
+            res.status(200).send({
+                status: "true",
+                message: "success",
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                roles: authorities,
+                accessToken: tokenReset
+            });
+        });
+    })
+    .catch(err => {
+        res.status(500).send({ 
+            message: "Please complete the data." 
+        });
     });
 };
