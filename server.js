@@ -43,12 +43,24 @@ function initial() {
 
     Hotel.create({
       name: "Carlton Hotel",
-      location: "Singapore"
+      location: "Singapore",
+      rating: "", // 1 - 5
+      price: "",
+      lat: "",
+      lon: "",
+      image: "",
+      review: "" // 1 - 10
     });
 
     Hotel.create({
       name: "Royal Plaza on Scotts Hotel",
-      location: "Orchard City Center"
+      location: "Orchard City Center",
+      rating: "",
+      price: "",
+      lat: 1.3071623424894887,
+      lon: 103.83194724391689,
+      image: "",
+      review: ""
     });
 }
 

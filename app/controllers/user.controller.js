@@ -61,7 +61,7 @@ exports.resetPassword = (req, res) => {
       if (user == 1) {
         res.status(200).send({
             status: "true",
-            message: "Tutorial was updated successfully."
+            message: "User was updated successfully."
         });
       } else {
         res.status(404).send({

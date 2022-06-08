@@ -10,6 +10,24 @@ module.exports = (sequelize, Sequelize) => {
         },
         location: {
             type: Sequelize.STRING
+        },
+        rating: {
+            type: Sequelize.INTEGER
+        },
+        price: {
+            type: Sequelize.DOUBLE
+        },
+        lat: {
+            type: Sequelize.FLOAT
+        },
+        lon: {
+            type: Sequelize.FLOAT
+        },
+        image: {
+            type: Sequelize.STRING
+        },
+        review: {
+            type: Sequelize.DOUBLE
         }
     });
     return Hotel;

@@ -85,6 +85,9 @@ exports.signin = (req, res) => {
                 email: user.email,
                 phone: user.phone,
                 roles: authorities,
+                favCountry: user.favCountry,
+                favFood: user.favFood,
+                favMovie: user.favMovie,
                 accessToken: token
             });
         });
