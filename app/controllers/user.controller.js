@@ -4,20 +4,37 @@ const User = db.user;
 const Op = db.Sequelize.Op;
 var bcrypt = require("bcryptjs");
 
+// Pagination
+const getPagination = (page, size) => {
+  const limit = size ? +size : 3;
+  const offset = page ? page * limit : 0;
+  return { limit, offset };
+};
+
+const getPagingData = (data, page, limit) => {
+  const { count: totalItems, rows: hotel } = data;
+  const currentPage = page ? +page : 0;
+  const totalPages = Math.ceil(totalItems / limit);
+  return { totalItems, hotel, totalPages, currentPage };
+};
+
 exports.allAccess = (req, res) => {
     res.status(200).send("Public Content.");
 };
 
 // get All Hotel
-exports.userBoard = (req, res) => {
-    const name = req.query.name;
+exports.findHotel = (req, res) => {
+    const { page, size, name } = req.query;
     var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
-    Hotel.findAll({ where: condition })
+    const { limit, offset } = getPagination(page, size);
+
+    Hotel.findAndCountAll({ where: condition, limit, offset})
     .then(data => {
+        const response = getPagingData(data, page, limit)
         res.send({
             status: "true",
             message: "success",
-            data
+            response
         });
     })
     .catch(err => {
@@ -27,28 +44,26 @@ exports.userBoard = (req, res) => {
     });
 };
 
-// get Hotel by Id
-exports.findById = (req, res) => {
-    const id = req.params.id;
-    Hotel.findByPk(id)
-    .then(data => {
-        if (data) {
-            res.status(200).send({
-                status: "true",
-                message: "success",
-                data
-            });
-        } else {
-            res.status(404).send({
-                message: `Cannot find Hotel with id=${id}.`
-            });
-        }
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: "Error Retrieving Hotel with id =" + id
-        });
-    });
+// find By Location
+exports.findByLoc = (req, res) => {
+  const { page, size, location } = req.query;
+  var conditionLoc = location ? { location: { [Op.like]: `%${location}%` } } : null;
+  const { limit, offset } = getPagination(page, size);
+
+  Hotel.findAndCountAll({ where: conditionLoc, limit, offset })
+  .then(data => {
+      const response = getPagingData(data, page, limit)
+      res.send({
+          status: "true",
+          message: "success",
+          response
+      });
+  })
+  .catch(err => {
+      res.status(500).send({
+          message: "Some error occurred while retrieving Hotel."
+      });
+  });
 };
 
 exports.resetPassword = (req, res) => {
@@ -72,7 +87,7 @@ exports.resetPassword = (req, res) => {
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating Tutorial with id=" + email
+        message: "Error updating Password with email=" + email
       });
     });
 };

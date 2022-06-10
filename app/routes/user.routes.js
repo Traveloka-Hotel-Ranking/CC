@@ -9,16 +9,17 @@ module.exports = function(app) {
         next();
     });
     app.get("/api/test/all", controller.allAccess);
+
     app.get(
-        "/api/test/hotel",
+        "/api/hotel",
         [authJwt.verifyTokenHotel, authJwt.isUser],
-        controller.userBoard
+        controller.findHotel
     );
 
     app.get(
-        "/api/test/hotel/:id",
+        "/api/hotel/loc",
         [authJwt.verifyTokenHotel, authJwt.isUser],
-        controller.findById
+        controller.findByLoc
     );
 
     app.get(

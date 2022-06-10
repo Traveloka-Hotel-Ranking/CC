@@ -12,16 +12,16 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         rating: {
-            type: Sequelize.INTEGER
-        },
-        price: {
             type: Sequelize.DOUBLE
         },
+        price: {
+            type: Sequelize.STRING
+        },
         lat: {
-            type: Sequelize.FLOAT
+            type: Sequelize.DECIMAL(11,10)
         },
         lon: {
-            type: Sequelize.FLOAT
+            type: Sequelize.DECIMAL(9,6)
         },
         image: {
             type: Sequelize.STRING
