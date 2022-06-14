@@ -1,5 +1,5 @@
 module.exports = {
-    HOST: "34.101.209.215",
+    HOST: "34.101.63.28",
     USER: "root",
     PASSWORD: "traveloka",
     DB: "traveloka",

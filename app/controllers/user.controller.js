@@ -1,6 +1,7 @@
 const db = require("../models");
 const Hotel = db.hotel;
 const User = db.user;
+const Facility = db.facility;
 const Op = db.Sequelize.Op;
 var bcrypt = require("bcryptjs");
 
@@ -28,10 +29,13 @@ exports.findHotel = (req, res) => {
     var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
     const { limit, offset } = getPagination(page, size);
 
-    Hotel.findAndCountAll({ where: condition, limit, offset})
+    Hotel.findAndCountAll({ 
+        where: condition, limit, offset,
+        include: Facility
+     })
     .then(data => {
         const response = getPagingData(data, page, limit)
-        res.send({
+        res.status(200).send({
             status: "true",
             message: "success",
             response
@@ -50,7 +54,10 @@ exports.findByLoc = (req, res) => {
   var conditionLoc = location ? { location: { [Op.like]: `%${location}%` } } : null;
   const { limit, offset } = getPagination(page, size);
 
-  Hotel.findAndCountAll({ where: conditionLoc, limit, offset })
+  Hotel.findAndCountAll({ 
+    where: conditionLoc, limit, offset,
+    include: Facility
+ })
   .then(data => {
       const response = getPagingData(data, page, limit)
       res.send({
