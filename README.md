@@ -9,6 +9,9 @@ The source code of Cloud Computing model's API of Traveloka Hotel Rangking in or
 # About The Project
 Our model tends to recommend hotels that match users’ behavior using retrieval and ranking algorithm 
 
+# API Documentation
+[RESTful-API-Traveloka](https://documenter.getpostman.com/view/15590410/UzBiQUw8)
+
 # Framework/Library
 ![expressjs](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
 
