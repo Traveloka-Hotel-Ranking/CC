@@ -23,8 +23,11 @@ Our model tends to recommend hotels that match users’ behavior using retrieval
 - Cloud AI Platform (Jupyter Notebook)
 - Google Cloud Storage
 
+# Cloud Architecture
+![cloudarc](https://media.discordapp.net/attachments/968029393224106004/986884766546677801/Web_Service_Architecture.jpg?width=610&height=467)
+
 # Part Of Our Capstone
-|            No          | Part |        Status        |
+|            No          | Working |        Status        |
 | :---: | :--------: | :----------------: |
 |         1     | PREPARING DATA STORAGE FOR APPLICATION DATA |   Complete ✓    |
 |   2   | CREATING RESTFUL API USING JAVASCRIPT |     Complete ✓     | 
