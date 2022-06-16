@@ -16,10 +16,10 @@ The source code of Cloud Computing model's API of Traveloka Hotel Rangking in or
 # IDE/Tools
 ![vsc](https://img.shields.io/badge/Visual_Studio-5C2D91?style=for-the-badge&logo=visual%20studio&logoColor=white)
 
-# Resources
+# GCP Resources
 - Compute Engine (VM Instances)
-- Cloud AI Platform (Jupyter Notebook)
-- Google Cloud Storage
+- Cloud Vertex AI (Jupyter Notebook)
+- Cloud SQL
 
 # Cloud Architecture
 ![cloudarc](https://media.discordapp.net/attachments/968029393224106004/986884766546677801/Web_Service_Architecture.jpg?width=610&height=467)
