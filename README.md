@@ -2,12 +2,10 @@
 ![javascript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![gcp](https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)
 ![mysql](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 
-# Hotel Ranking Project - Traveloka 
+# Cloud Computing
 The source code of Cloud Computing model's API of Traveloka Hotel Rangking in order to complete Bangkit Capstone Project
-
-# About The Project
-Our model tends to recommend hotels that match users’ behavior using retrieval and ranking algorithm 
 
 # API Documentation
 [RESTful-API-Traveloka](https://documenter.getpostman.com/view/15590410/UzBiQUw8)
