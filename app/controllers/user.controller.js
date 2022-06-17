@@ -76,7 +76,8 @@ exports.findByLoc = (req, res) => {
 // find By Rating
 exports.findByRat = (req, res) => {
   const review = req.query.review;
-  var conditionRat = review ? { review: { [Op.like]: `${review}` } } : null;
+  const reviewMax = req.query.reviewMax;
+  var conditionRat = review && reviewMax ? { review: { [Op.between]: [review, reviewMax] } } : null;
   
   Hotel.findAll({ 
     where: conditionRat,
