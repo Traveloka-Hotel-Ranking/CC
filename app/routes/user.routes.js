@@ -23,6 +23,12 @@ module.exports = function(app) {
     );
 
     app.get(
+        "/api/hotel/rev",
+        [authJwt.verifyTokenHotel, authJwt.isUser],
+        controller.findByRat
+    );
+
+    app.get(
         "/api/test/mod",
         [authJwt.verifyTokenHotel, authJwt.isModerator],
         controller.moderatorBoard

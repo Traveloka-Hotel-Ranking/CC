@@ -73,6 +73,29 @@ exports.findByLoc = (req, res) => {
   });
 };
 
+// find By Rating
+exports.findByRat = (req, res) => {
+  const review = req.query.review;
+  var conditionRat = review ? { review: { [Op.like]: `${review}` } } : null;
+  
+  Hotel.findAll({ 
+    where: conditionRat,
+    include: Facility
+ })
+  .then(data => {
+      res.send({
+          status: "true",
+          message: "success",
+          data
+      });
+  })
+  .catch(err => {
+      res.status(500).send({
+          message: "Some error occurred while retrieving Hotel."
+      });
+  });
+};
+
 exports.resetPassword = (req, res) => {
   const email = req.body.email;
   User.update({
